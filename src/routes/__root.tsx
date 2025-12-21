@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import NotFound from "@/components/NotFound";
+import { ThemeInit } from "../../.flowbite-react/init";
 import Header from "../components/Header";
 import appCss from "../styles.css?url";
 
@@ -17,6 +18,7 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => {
 				<HeadContent />
 			</head>
 			<body>
+				<ThemeInit />
 				<Header />
 				<div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
 					{children}
