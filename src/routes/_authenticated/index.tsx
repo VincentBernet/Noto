@@ -28,6 +28,13 @@ const App = () => {
 		}
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (e.key === "Enter" && !e.shiftKey) {
+			e.preventDefault();
+			handleSubmit(e);
+		}
+	};
+
 	return (
 		<section className="relative py-20 px-6 text-center overflow-hidden">
 			<h1 className="text-4xl font-bold">Time to learn 📚</h1>
@@ -36,9 +43,11 @@ const App = () => {
 				className="flex items-center justify-center gap-2 mt-4"
 			>
 				<Textarea
+					className="w-full max-w-xl !bg-slate-800/50 !border-slate-600 !text-white placeholder:text-slate-400 focus:!border-cyan-500 focus:!ring-cyan-500"
 					rows={4}
 					placeholder="Ask a question to Noto"
 					onChange={(e) => setQuestion(e.target.value)}
+					onKeyDown={handleKeyDown}
 					value={question}
 					disabled={isSubmitting}
 				/>
