@@ -25,6 +25,7 @@ const AnimatedTitle = ({ text, className }: Props) => (
 		className={className}
 	>
 		{text.split("").map((char, i) => (
+			// biome-ignore lint/suspicious/noArrayIndexKey: Characters in typewriter animation are position-dependent and never reorder
 			<motion.span key={`${char}-${i}`} variants={letterVariants}>
 				{char}
 			</motion.span>
