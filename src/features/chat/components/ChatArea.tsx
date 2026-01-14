@@ -1,8 +1,8 @@
 import type { UIMessage } from "@ai-sdk/react";
 import { Textarea } from "flowbite-react";
-import { ArrowUp } from "lucide-react";
-import { motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import LLMInteraction from "@/features/chat/components/LLMInteraction";
 import UserInteraction from "@/features/chat/components/UserInteraction";
 import { getRows } from "@/features/chat/utils";
@@ -25,13 +25,27 @@ const ChatArea = ({
 	onKeyDown,
 }: Props) => {
 	const lastUserMessageRef = useRef<HTMLDivElement>(null);
+	const bottomRef = useRef<HTMLDivElement>(null);
 	const prevMessagesLengthRef = useRef(messages.length);
+	const [showScrollButton, setShowScrollButton] = useState(false);
 
 	// Find index of the last user message for ref assignment
 	const lastUserMessageIndex = messages.reduce(
 		(lastIndex, msg, index) => (msg.role === "user" ? index : lastIndex),
 		-1,
 	);
+
+	// Track if bottom is visible to show/hide scroll button
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => setShowScrollButton(!entry.isIntersecting),
+			{
+				threshold: 0,
+			},
+		);
+		if (bottomRef.current) observer.observe(bottomRef.current);
+		return () => observer.disconnect();
+	}, []);
 
 	// Scroll when a new user message is added
 	useEffect(() => {
@@ -51,6 +65,10 @@ const ChatArea = ({
 
 		prevMessagesLengthRef.current = messages.length;
 	}, [messages]);
+
+	const scrollToBottom = () => {
+		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+	};
 
 	return (
 		<motion.section
@@ -77,9 +95,25 @@ const ChatArea = ({
 				{messages.filter((m) => m.role === "user").length >= 2 && (
 					<div className="min-h-[70vh] shrink-0" />
 				)}
+				{/* Bottom marker for scroll detection */}
+				<div ref={bottomRef} />
 			</div>
 
-			<div className="sticky bottom-8 left-0 right-0 pt-4">
+			<div className="sticky bottom-8 left-0 right-0 pt-4 relative">
+				<AnimatePresence>
+					{showScrollButton && (
+						<motion.button
+							type="button"
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 10 }}
+							onClick={scrollToBottom}
+							className="absolute -top-12 left-1/2 -translate-x-1/2 p-2 bg-slate-700 text-white rounded-full hover:bg-slate-600 transition-colors shadow-lg cursor-pointer"
+						>
+							<ArrowDown size={20} />
+						</motion.button>
+					)}
+				</AnimatePresence>
 				<form onSubmit={onSubmit} className="relative">
 					<Textarea
 						className={`!bg-slate-800 !border-slate-600 !text-white placeholder:text-slate-400 focus:!border-cyan-500 focus:!ring-cyan-500 !pr-14 !p-5 resize-none ${getRows(input) === 1 ? "rounded-full" : "squircle rounded-[28px]"}`}
