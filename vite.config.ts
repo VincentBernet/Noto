@@ -8,10 +8,17 @@ import netlify from '@netlify/vite-plugin-tanstack-start'
 import flowbiteReact from "flowbite-react/plugin/vite";
 
 const config = defineConfig({
-  plugins: [devtools(), netlify(), // this is the plugin that enables path aliases
-  viteTsConfigPaths({
-    projects: ['./tsconfig.json'],
-  }), tailwindcss(), tanstackStart(), viteReact(), flowbiteReact()],
+  plugins: [
+    devtools(),
+    viteTsConfigPaths({
+      projects: ['./tsconfig.json'],
+    }),
+    tailwindcss(),
+    tanstackStart(),
+    netlify(),
+    viteReact(),
+    flowbiteReact(),
+  ],
 })
 
 export default config

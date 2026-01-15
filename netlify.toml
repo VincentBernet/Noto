@@ -1,6 +1,12 @@
 [build]
   command = "npx convex deploy --cmd 'pnpm run build'"
-  dir = "dist/client"
+  publish = "dist/client"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [dev]
   command = "pnpm run dev"
   targetPort = 3000
