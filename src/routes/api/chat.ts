@@ -33,7 +33,10 @@ export const Route = createFileRoute("/api/chat")({
 							const latencyMs = Date.now() - startTime;
 							const convexUrl = process.env.VITE_CONVEX_URL;
 							if (!convexUrl) {
-								console.error("❌ VITE_CONVEX_URL not configured");
+								console.error("[TanStack Backend] ❌ VITE_CONVEX_URL not configured", {
+									route: "/api/chat",
+									method: "POST",
+								});
 								return;
 							}
 
@@ -58,7 +61,15 @@ export const Route = createFileRoute("/api/chat")({
 									}),
 								});
 							} catch (error) {
-								console.error("❌ Failed to save assistant message:", error);
+								console.error(
+									"[TanStack Backend] ❌ Failed to save assistant message:",
+									{
+										error,
+										route: "/api/chat",
+										method: "POST",
+										endpoint: "/saveAssistantMessage",
+									},
+								);
 							}
 
 							// Generate title for first message
@@ -81,7 +92,12 @@ export const Route = createFileRoute("/api/chat")({
 									});
 									console.log("📝 Generated title:", titleResult.text);
 								} catch (error) {
-									console.error("❌ Failed to generate title:", error);
+									console.error("[TanStack Backend] ❌ Failed to generate title:", {
+										error,
+										route: "/api/chat",
+										method: "POST",
+										endpoint: "/generateTitle",
+									});
 								}
 							}
 						}

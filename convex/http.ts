@@ -29,7 +29,11 @@ http.route({
 
 		if (!conversationId || !content) {
 			return new Response(
-				JSON.stringify({ error: "Missing conversationId or content" }),
+				JSON.stringify({
+					error: "Missing conversationId or content",
+					source: "convex-backend",
+					endpoint: "/saveAssistantMessage",
+				}),
 				{ status: 400, headers: { "Content-Type": "application/json" } }
 			);
 		}
@@ -49,9 +53,24 @@ http.route({
 				{ status: 200, headers: { "Content-Type": "application/json" } }
 			);
 		} catch (error) {
-			console.error("Failed to save assistant message:", error);
+			console.error("[Convex Backend] Failed to save assistant message:", {
+				error,
+				endpoint: "/saveAssistantMessage",
+			});
+			if (error instanceof Error) {
+				console.error(
+					"[Convex Backend] Error details:",
+					error.message,
+					error.stack,
+				);
+			}
 			return new Response(
-				JSON.stringify({ error: "Failed to save message" }),
+				JSON.stringify({
+					error: "Failed to save message",
+					source: "convex-backend",
+					endpoint: "/saveAssistantMessage",
+					details: error instanceof Error ? error.message : "Unknown error",
+				}),
 				{ status: 500, headers: { "Content-Type": "application/json" } }
 			);
 		}
@@ -70,7 +89,11 @@ http.route({
   
 	  if (!conversationId || !title) {
 		return new Response(
-		  JSON.stringify({ error: "Missing conversationId or title" }),
+		  JSON.stringify({
+			error: "Missing conversationId or title",
+			source: "convex-backend",
+			endpoint: "/generateTitle",
+		  }),
 		  { status: 400, headers: { "Content-Type": "application/json" } }
 		);
 	  }
@@ -86,9 +109,20 @@ http.route({
 		  { status: 200, headers: { "Content-Type": "application/json" } }
 		);
 	  } catch (error) {
-		console.error("Failed to update title:", error);
+		console.error("[Convex Backend] Failed to update title:", {
+			error,
+			endpoint: "/generateTitle",
+		});
+		if (error instanceof Error) {
+			console.error("[Convex Backend] Error details:", error.message, error.stack);
+		}
 		return new Response(
-		  JSON.stringify({ error: "Failed to update title" }),
+		  JSON.stringify({
+			error: "Failed to update title",
+			source: "convex-backend",
+			endpoint: "/generateTitle",
+			details: error instanceof Error ? error.message : "Unknown error",
+		  }),
 		  { status: 500, headers: { "Content-Type": "application/json" } }
 		);
 	  }
@@ -105,7 +139,11 @@ http.route({
 
 		if (!videoId) {
 			return new Response(
-				JSON.stringify({ error: "videoId parameter is required" }),
+				JSON.stringify({
+					error: "videoId parameter is required",
+					source: "convex-backend",
+					endpoint: "/checkIfVideoExists",
+				}),
 				{ status: 400, headers: { "Content-Type": "application/json" } }
 			);
 		}
@@ -120,9 +158,25 @@ http.route({
 				{ status: 200, headers: { "Content-Type": "application/json" } }
 			);
 		} catch (error) {
-			console.error("Failed to check if video exists:", error);
+			console.error("[Convex Backend] Failed to check if video exists:", {
+				error,
+				endpoint: "/checkIfVideoExists",
+				videoId,
+			});
+			if (error instanceof Error) {
+				console.error(
+					"[Convex Backend] Error details:",
+					error.message,
+					error.stack,
+				);
+			}
 			return new Response(
-				JSON.stringify({ error: "Failed to check if video exists in database" }),
+				JSON.stringify({
+					error: "Failed to check if video exists in database",
+					source: "convex-backend",
+					endpoint: "/checkIfVideoExists",
+					details: error instanceof Error ? error.message : "Unknown error",
+				}),
 				{ status: 500, headers: { "Content-Type": "application/json" } }
 			);
 		}
