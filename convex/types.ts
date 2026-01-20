@@ -35,7 +35,7 @@ export const messageRoleValidator = v.union(
 // PROMPT MODES
 // ============================================
 
-export const PROMPT_MODES = ["summary", "quiz", "explain", "interactive"] as const;
+export const PROMPT_MODES = ["summary", "quiz", "explain", "interactive", "key-points"] as const;
 export type PromptModeValue = (typeof PROMPT_MODES)[number];
 
 export const promptModeValidator = v.union(

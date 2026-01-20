@@ -33,10 +33,13 @@ export const Route = createFileRoute("/api/chat")({
 							const latencyMs = Date.now() - startTime;
 							const convexUrl = process.env.VITE_CONVEX_URL;
 							if (!convexUrl) {
-								console.error("[TanStack Backend] ❌ VITE_CONVEX_URL not configured", {
-									route: "/api/chat",
-									method: "POST",
-								});
+								console.error(
+									"[TanStack Backend] ❌ VITE_CONVEX_URL not configured",
+									{
+										route: "/api/chat",
+										method: "POST",
+									},
+								);
 								return;
 							}
 
@@ -92,12 +95,15 @@ export const Route = createFileRoute("/api/chat")({
 									});
 									console.log("📝 Generated title:", titleResult.text);
 								} catch (error) {
-									console.error("[TanStack Backend] ❌ Failed to generate title:", {
-										error,
-										route: "/api/chat",
-										method: "POST",
-										endpoint: "/generateTitle",
-									});
+									console.error(
+										"[TanStack Backend] ❌ Failed to generate title:",
+										{
+											error,
+											route: "/api/chat",
+											method: "POST",
+											endpoint: "/generateTitle",
+										},
+									);
 								}
 							}
 						}

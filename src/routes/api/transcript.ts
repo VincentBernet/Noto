@@ -28,10 +28,13 @@ export const Route = createFileRoute("/api/transcript")({
 
 				const apiKey = process.env.TRANSCRIPT_API_KEY;
 				if (!apiKey) {
-					console.error("[TanStack Backend] ❌ TRANSCRIPT_API_KEY not configured", {
-						route: "/api/transcript",
-						method: "GET",
-					});
+					console.error(
+						"[TanStack Backend] ❌ TRANSCRIPT_API_KEY not configured",
+						{
+							route: "/api/transcript",
+							method: "GET",
+						},
+					);
 					return new Response(
 						JSON.stringify({
 							error: "Transcript API not configured",

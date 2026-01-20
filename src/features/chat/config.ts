@@ -1,5 +1,5 @@
 import type { ModelAvailable, PromptModeValue } from "convex/types";
-import { BookOpen, FileText, HelpCircle } from "lucide-react";
+import { BookOpen, FileText, HelpCircle, Lightbulb } from "lucide-react";
 import { RubberDuck } from "@/commons/assets/RubberDuck";
 
 export type PromptMode = {
@@ -39,6 +39,7 @@ End of Session:
 - When the user has covered the essential concepts, propose a short recap or a knowledge summary if appropriate.
 `;
 
+/**
 const _RUBBER_DUCK_SYSTEM_PROMPT = `
 Role:
 You are a Rubber Duck learning companion. Your role is to help the user understand the transcript content by encouraging them to explain concepts in their own words, just like explaining code to a rubber duck helps developers find bugs.
@@ -75,7 +76,8 @@ Tone:
 - Let silence (in the form of questions) do the work
 
 Remember: The power is in the user explaining, not in you teaching. Your questions should help them teach themselves.
-`
+`;
+**/
 
 export const PROMPT_MODES = [
 	{
@@ -120,4 +122,5 @@ export const MODE_ICONS = {
 	quiz: HelpCircle,
 	explain: BookOpen,
 	interactive: RubberDuck,
+	"key-points": Lightbulb,
 } as const;

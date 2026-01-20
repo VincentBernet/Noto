@@ -66,7 +66,8 @@ export const Route = createRootRouteWithContext<{
 			},
 			{
 				property: "og:description",
-				content: "Transform YouTube videos into interactive learning experiences with AI-powered conversations",
+				content:
+					"Transform YouTube videos into interactive learning experiences with AI-powered conversations",
 			},
 			{
 				property: "og:image",
@@ -95,7 +96,8 @@ export const Route = createRootRouteWithContext<{
 			},
 			{
 				name: "twitter:description",
-				content: "Transform YouTube videos into interactive learning experiences with AI-powered conversations",
+				content:
+					"Transform YouTube videos into interactive learning experiences with AI-powered conversations",
 			},
 			{
 				name: "twitter:image",
