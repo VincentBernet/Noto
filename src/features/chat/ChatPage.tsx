@@ -234,7 +234,7 @@ const ChatPage = () => {
 		resetToDefaults();
 		// Reset setup state
 		setYoutubeUrl("");
-		setSelectedMode("summary");
+		setSelectedMode("interactive");
 		setHasSetupCompleted(false);
 		setYoutubeVideoId(null);
 	};
