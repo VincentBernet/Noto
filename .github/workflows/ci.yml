@@ -30,5 +30,7 @@ jobs:
       - name: 📦 Build frontend
         run: pnpm run build
 
-      - name: 📦 Build backend
-        run: cd convex && npx convex deploy --cmd 'pnpm run build'
+      - name: 📦 Build Backend (dry-run)
+        env:
+          CONVEX_DEPLOY_KEY: ${{ secrets.CONVEX_DEPLOY_KEY }}
+        run: npx convex deploy --dry-run --cmd 'pnpm run build'
