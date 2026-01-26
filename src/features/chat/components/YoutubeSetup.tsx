@@ -3,6 +3,7 @@ import { TextInput } from "flowbite-react";
 import { Youtube } from "lucide-react";
 import { motion } from "motion/react";
 import { MODE_ICONS, PROMPT_MODES } from "@/features/chat/config";
+import { useEnterKeySubmit } from "@/features/chat/hooks/useEnterKeySubmit";
 
 type Props = {
 	youtubeUrl: string;
@@ -23,6 +24,11 @@ const YoutubeSetup = ({
 	isLoading,
 	isError,
 }: Props) => {
+	useEnterKeySubmit({
+		onSubmit,
+		enabled: !!youtubeUrl.trim() && !isLoading,
+	});
+
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter" && youtubeUrl.trim()) {
 			e.preventDefault();
